@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-label="Concept sketch: a customer dollar flows into a business and splits into cost of goods, other costs, and the margin left over" font-family="'IBM Plex Mono',ui-monospace,monospace">
+<text x="20" y="26" fill="#5f6d78" font-size="11">concept sketch &#183; where one customer dollar actually goes</text>
+<rect x="20" y="70" width="130" height="180" rx="8" fill="#1b232a" stroke="#2f3a43"/>
+<text x="85" y="152" fill="#EDF1F3" font-size="13" text-anchor="middle">Customer</text>
+<text x="85" y="174" fill="#5f6d78" font-size="12" text-anchor="middle">$1.00</text>
+<path d="M150 160 L238 160" stroke="#FFB547" stroke-width="20" opacity=".85"/>
+<rect x="242" y="70" width="152" height="180" rx="8" fill="#1b232a" stroke="#2f3a43"/>
+<text x="318" y="152" fill="#EDF1F3" font-size="13" text-anchor="middle">The business</text>
+<text x="318" y="174" fill="#5f6d78" font-size="11" text-anchor="middle">a warehouse club</text>
+<path d="M394 102 L500 102" stroke="#d95926" stroke-width="13" opacity=".85"/>
+<path d="M394 166 L500 166" stroke="#d95926" stroke-width="7" opacity=".85"/>
+<path d="M394 226 L500 226" stroke="#6FCF8B" stroke-width="3" opacity=".9"/>
+<g fill="#1b232a" stroke="#2f3a43"><rect x="504" y="74" width="238" height="56" rx="6"/><rect x="504" y="138" width="238" height="56" rx="6"/><rect x="504" y="200" width="238" height="56" rx="6"/></g>
+<g fill="#EDF1F3" font-size="13"><text x="526" y="100">Cost of the goods</text><text x="526" y="164">Staff, rent, everything else</text><text x="526" y="226">What is left over</text></g>
+<g fill="#5f6d78" font-size="11"><text x="526" y="120">$0.89</text><text x="526" y="184">$0.09</text><text x="526" y="246">$0.02 &#8212; the membership fee is the business</text></g>
+<text x="20" y="310" fill="#5f6d78" font-size="11">figures are illustrative, drawn to show the shape of a model &#8212; the tool will pull real filings</text>
+</svg>

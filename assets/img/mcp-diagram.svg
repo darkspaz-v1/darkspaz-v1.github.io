@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-label="Diagram: an AI assistant's requests pass through five safety gates before reaching desktop apps, the task planner and the notes vault" font-family="'IBM Plex Mono',ui-monospace,monospace">
+<defs><marker id="ma" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#3d4a54"/></marker></defs>
+<rect x="8" y="126" width="152" height="88" rx="8" fill="#1b232a" stroke="#2f3a43"/>
+<text x="84" y="164" fill="#EDF1F3" font-size="13" text-anchor="middle">AI assistant</text>
+<text x="84" y="184" fill="#5f6d78" font-size="11" text-anchor="middle">plain English</text>
+<path d="M168 170 L228 170" stroke="#3d4a54" stroke-width="1.5" marker-end="url(#ma)"/>
+<rect x="236" y="58" width="220" height="224" rx="10" fill="#1b232a" stroke="#FFB547" stroke-width="1.5"/>
+<text x="346" y="88" fill="#FFB547" font-size="13" text-anchor="middle">5 safety gates</text>
+<g fill="#93A3AD" font-size="12">
+  <text x="272" y="124">stop-file switch</text><text x="272" y="152">input on / off</text>
+  <text x="272" y="180">blocked windows</text><text x="272" y="208">60 actions / min</text>
+  <text x="272" y="236">corner failsafe</text>
+</g>
+<g fill="#6FCF8B"><circle cx="258" cy="120" r="3.5"/><circle cx="258" cy="148" r="3.5"/><circle cx="258" cy="176" r="3.5"/><circle cx="258" cy="204" r="3.5"/><circle cx="258" cy="232" r="3.5"/></g>
+<text x="346" y="266" fill="#5f6d78" font-size="11" text-anchor="middle">every action written to an audit log</text>
+<path d="M464 170 L524 170" stroke="#3d4a54" stroke-width="1.5" marker-end="url(#ma)"/>
+<g fill="#1b232a" stroke="#2f3a43">
+  <rect x="532" y="72" width="220" height="60" rx="8"/><rect x="532" y="140" width="220" height="60" rx="8"/><rect x="532" y="208" width="220" height="60" rx="8"/>
+</g>
+<g fill="#EDF1F3" font-size="13"><text x="554" y="100">Desktop apps</text><text x="554" y="168">Task planner</text><text x="554" y="236">Notes vault</text></g>
+<g fill="#5f6d78" font-size="11"><text x="554" y="120">named controls only</text><text x="554" y="188">read and write</text><text x="554" y="256">read only, by design</text></g>
+</svg>

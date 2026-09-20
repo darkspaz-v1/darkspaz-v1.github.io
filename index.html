@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anshul Vasmate — Bench</title>
+<meta name="description" content="Things I have built: a local AI video pipeline, a stock-ranking research engine that failed first, MotionVision hand-tracked mouse control, desktop agent tooling — and what is on the bench now.">
+<meta property="og:title" content="Anshul Vasmate — Bench">
+<meta property="og:description" content="Computer engineering at Maryland. I build tools that run on my own machine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D1114'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23FFB547'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0D1114; --panel:#151B21; --panel-2:#1b232a; --line:#232C34; --line-hi:#2f3a43;
+  --ink:#EDF1F3; --muted:#93A3AD; --dim:#6b7a85;
+  --amber:#FFB547; --copper:#D2724A; --green:#6FCF8B;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  --display:'Space Grotesk','IBM Plex Sans',system-ui,sans-serif;
+  --pad:clamp(16px,4vw,28px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--amber);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+a:hover{border-bottom-color:var(--amber)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px}
+img,svg{display:block;max-width:100%;height:auto}
+.wrap{width:min(1080px,100% - 2*var(--pad));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(56px,11vw,116px) 0 clamp(40px,7vw,72px);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:34px 34px;opacity:.55;
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 20% 0%,#000 10%,transparent 78%);
+  mask-image:radial-gradient(ellipse 80% 70% at 20% 0%,#000 10%,transparent 78%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+h1{font-family:var(--display);font-weight:700;letter-spacing:-.025em;line-height:1.04;font-size:clamp(2.3rem,7vw,4.4rem)}
+h1 .b{display:block;color:var(--amber)}
+.lede{margin-top:20px;max-width:56ch;font-size:clamp(1rem,2.2vw,1.18rem);color:#c7d1d8}
+.links{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
+.links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border:1px solid var(--line-hi);border-radius:8px;
+  font-family:var(--mono);font-size:.82rem;color:var(--ink);background:var(--panel)}
+.links a:hover{border-color:var(--amber);color:var(--amber)}
+.links a.primary{background:var(--amber);color:#14171a;border-color:var(--amber);font-weight:500}
+.links a.primary:hover{background:#ffc06b;color:#14171a}
+
+/* ---------- status board (signature) ---------- */
+.board{margin-top:clamp(36px,6vw,56px);border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,var(--panel),#12181d)}
+.board-h{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.board ol{list-style:none}
+.board li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:11px 16px;border-top:1px solid #1b2228}
+.board li:first-child{border-top:0}
+.led{width:9px;height:9px;border-radius:50%;background:var(--dim);flex:none}
+.led.on{background:var(--green);box-shadow:0 0 0 3px rgba(111,207,139,.13)}
+.led.work{background:var(--amber);box-shadow:0 0 0 3px rgba(255,181,71,.14);animation:blink 2.6s ease-in-out infinite}
+.led.plan{background:var(--copper);box-shadow:0 0 0 3px rgba(210,114,74,.12)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.42}}
+.board .nm{font-size:.95rem}
+.board .st{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+@media(max-width:639px){
+  .board li{grid-template-columns:auto 1fr;row-gap:3px}
+  .board .st{grid-column:2;text-align:left;white-space:normal}
+}
+
+/* ---------- sections ---------- */
+section{padding:clamp(52px,9vw,96px) 0}
+.sec-h{display:flex;align-items:baseline;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:clamp(30px,5vw,50px)}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(1.35rem,3.4vw,1.9rem);letter-spacing:-.015em}
+.sec-h .note{margin-left:auto;text-align:right}
+
+/* ---------- project ---------- */
+.proj{padding-block:clamp(30px,5vw,44px);border-top:1px solid var(--line)}
+.proj:first-of-type{border-top:0;padding-top:0}
+.proj-grid{display:grid;gap:clamp(20px,4vw,40px)}
+@media(min-width:900px){
+  .proj-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:start}
+  .proj.flip .proj-media{order:-1}
+}
+h3{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.6vw,1.45rem);letter-spacing:-.01em}
+.tag{display:inline-flex;align-items:center;gap:7px;margin-bottom:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.what{margin-top:10px;color:var(--amber);font-size:1rem}
+.proj p.body{margin-top:14px;color:#bcc7ce}
+.proj p.body+p.body{margin-top:10px}
+.readout{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.readout span{font-family:var(--mono);font-size:.74rem;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 9px}
+.frame{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:14px;overflow:hidden}
+.frame svg{width:100%;height:auto}
+.cap{margin-top:12px;font-family:var(--mono);font-size:.72rem;color:var(--dim);line-height:1.5}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.strip img{border-radius:6px;width:100%}
+.shots{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:520px){.shots{grid-template-columns:1.9fr 1fr;align-items:start}}
+.shots img{border-radius:6px;border:1px solid var(--line-hi)}
+
+/* ---------- principles ---------- */
+.cols{display:grid;gap:18px}
+@media(min-width:760px){.cols{grid-template-columns:repeat(3,1fr)}}
+.card{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:20px}
+.card h4{font-family:var(--display);font-size:1rem;font-weight:600;margin-bottom:8px}
+.card p{color:#b4c0c8;font-size:.95rem}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:38px 0 54px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow mono"><span class="led work" aria-hidden="true"></span>College Park, Maryland</p>
+    <h1>Anshul Vasmate<span class="b">builds things that run.</span></h1>
+    <p class="lede">First-year computer engineering at the University of Maryland. I make tools for problems I actually have, and I keep going until they work every day on my own machine — not once in a demo.</p>
+    <nav class="links" aria-label="Contact and files">
+      <a class="primary" href="mailto:anshulvasmate2019@gmail.com">Email me</a>
+      <a href="Anshul-Vasmate-Resume.pdf">Resume (PDF)</a>
+      <a href="https://github.com/darkspaz-v1">GitHub</a>
+    </nav>
+
+    <div class="board">
+      <div class="board-h"><span class="mono">Bench status</span><span class="mono">Sept 2026</span></div>
+      <ol>
+        <li><span class="led on" aria-hidden="true"></span><span class="nm">ShortsForge — AI video pipeline</span><span class="st">Running</span></li>
+        <li><span class="led on" aria-hidden="true"></span><span class="nm">Stock-ranking research engine</span><span class="st">Finished, negative result</span></li>
+        <li><span class="led on" aria-hidden="true"></span><span class="nm">MotionVision — hand-tracked mouse</span><span class="st">Running</span></li>
+        <li><span class="led on" aria-hidden="true"></span><span class="nm">Desktop agent tooling</span><span class="st">Running</span></li>
+        <li><span class="led on" aria-hidden="true"></span><span class="nm">Two machines, two hours apart</span><span class="st">Running</span></li>
+        <li><span class="led work" aria-hidden="true"></span><span class="nm">Business model explainer</span><span class="st">Building</span></li>
+        <li><span class="led plan" aria-hidden="true"></span><span class="nm">8-bit CPU from discrete chips</span><span class="st">Researched, not built</span></li>
+        <li><span class="led work" aria-hidden="true"></span><span class="nm">Booking sites for local shops</span><span class="st">Selling</span></li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="built">
+  <div class="wrap">
+    <div class="sec-h"><h2>Built and in use</h2><span class="note mono">five projects</span></div>
+
+    <article class="proj">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led on" aria-hidden="true"></span>2026 · Python</p>
+          <h3>ShortsForge</h3>
+          <p class="what">One command turns a topic into a finished video.</p>
+          <p class="body">Type a topic. It writes the script, plans the scenes, writes the image prompts, speaks the narration, and cuts the video with captions ready to post.</p>
+          <p class="body">The language model and the voice both run on my own computer, so a video costs nothing to make and works with the internet off.</p>
+          <p class="body">The hard part was not generating things, it was stopping the character from changing appearance between scenes. One file now describes the character, and every prompt repeats it word for word.</p>
+          <div class="readout"><span>script + scene engine</span><span>character-lock prompt system</span><span>local voice pipeline</span><span>auto-captioning</span><span>two orchestration agents</span><span>whole model stack runs local</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <div class="strip">
+              <img src="assets/img/shortsforge-1.jpg" alt="Animated frame from a generated Short: a stick figure character in a colour-illustrated scene" loading="lazy" width="502" height="900">
+              <img src="assets/img/shortsforge-2.jpg" alt="Second frame from the same generated Short, the character in a different setting" loading="lazy" width="502" height="900">
+              <img src="assets/img/shortsforge-3.jpg" alt="Third frame from the same generated Short, closing scene" loading="lazy" width="502" height="900">
+            </div>
+            <p class="cap">Three frames from one generated Short. Same character, three scenes — that consistency is the part that took the work.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj flip">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led on" aria-hidden="true"></span>2026 · Python, scikit-learn</p>
+          <h3>Stock-ranking research engine</h3>
+          <p class="what">The project that failed first, and what I did about it.</p>
+          <p class="body">Version one tried to predict whether a stock would rise tomorrow. It looked strong in testing, then lost 5.5% on a slice of data I had locked away — while simply buying and holding made 18.6%.</p>
+          <p class="body">So I wrote down why it failed and rebuilt it to answer a different question: which stocks beat the market average over five days. 128 stocks, 374,365 rows of daily prices, 2,328 versions tested.</p>
+          <p class="body">This time the edge held up on the locked-away data. It is still not worth trading, because the profit is thinner than the cost of trading — and reporting that is the whole point.</p>
+          <div class="readout"><span>2,328 configurations</span><span>38 leak checks</span><span>beat 40 of 40 random controls</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <img src="assets/img/ic-chart.svg" alt="Bar chart: the dollar-neutral model scored 0.019 in testing and 0.024 on held-out data; the long-only model scored 0.025 in testing and 0.036 on held-out data" loading="lazy">
+            <p class="cap">Both models scored higher on data they had never seen than in testing. That is the opposite of what a model that is fooling itself does.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led on" aria-hidden="true"></span>2026 · OpenCV, MediaPipe</p>
+          <h3>MotionVision</h3>
+          <p class="what">Move the mouse with your hand in front of a webcam.</p>
+          <p class="body">The camera tracks 21 points on your hand. Pinch to click, hold to drag, or record a gesture and bind it to a keystroke, a media key, or an app.</p>
+          <p class="body">Getting from "works once in a demo" to "works every time" was the entire project: cursor jitter from natural tremor, Windows display scaling, a second monitor, and drags that stuck when the camera dropped a frame.</p>
+          <div class="readout"><span>29 automated tests</span><span>30 fps</span><span>dual-monitor safe</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <img src="assets/img/gesture-diagram.svg" alt="Diagram: hand landmarks from the webcam pass through a One Euro filter and become cursor position on screen" loading="lazy">
+            <p class="cap">Hand to cursor. The filter in the middle is what makes it usable instead of shaky.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj flip">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led on" aria-hidden="true"></span>2026 · Python, MCP</p>
+          <h3>Desktop agent tooling</h3>
+          <p class="what">Five small servers that let an AI assistant use my computer.</p>
+          <p class="body">Ask in plain English and it opens the right app, adds a task to my planner, or searches my notes — about thirty separate tools across five servers.</p>
+          <p class="body">An assistant can be talked into things by whatever text it reads, so I built the limits first: it can only launch apps from a list I approved, it refuses banking and password windows outright, it stops at sixty actions a minute, and it writes down everything it does. A single file on disk kills all input instantly.</p>
+          <div class="readout"><span>30+ tools</span><span>130+ test assertions</span><span>stop-file kill switch</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <img src="assets/img/mcp-diagram.svg" alt="Diagram: requests from an AI assistant pass through five safety gates before reaching desktop apps, the task planner, and the notes vault" loading="lazy">
+            <p class="cap">Nothing reaches the desktop without passing all five gates first.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led on" aria-hidden="true"></span>2026 · Windows, networking</p>
+          <h3>Two machines, two hours apart</h3>
+          <p class="what">My home laptop, reachable from campus, without opening a single port.</p>
+          <p class="body">The machine at home sleeps until it wakes itself on a schedule. From campus I can take over its screen, run a command on it, or drop a file in a folder and watch it appear on the other side. The two are joined by a private encrypted network, so nothing is exposed to the open internet and no company holds my files.</p>
+          <p class="body">Almost none of this worked the first time, and none of the failures printed an error. The machine simply did not wake up, and there was nothing to read.</p>
+          <p class="body">Waking it took five fixes stacked on top of each other, and four of them were symptoms. The real cause was a second sleep timeout Windows does not show in its settings screens at all — you can only see it by asking the power tool to dump hidden values. It applies specifically when the computer wakes for a scheduled task, and it was putting the machine back to sleep about two minutes after every successful wake. Along the way I also found that the sleep command most of the internet recommends silently turns wake-ups off, because of how its arguments land on the real function underneath.</p>
+          <p class="body">The lesson I actually keep: when a system fails silently, stop trusting what it displays. My file sync looked perfectly healthy in its own window for ten days while it copied nothing, after an update quietly left it running under a blank identity. Now I check that a real file moved, not that the screen looks fine.</p>
+          <div class="readout"><span>no ports opened</span><span>wakes on schedule, 3&#215;/day</span><span>screen, shell and file sync</span><span>five stacked bugs, one root cause</span><span>every failure silent</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <img src="assets/img/remote-diagram.svg" alt="Diagram: a campus laptop reaches a home laptop over a private encrypted network for remote desktop, SSH and two-way folder sync, with the home machine waking on a schedule" loading="lazy">
+            <p class="cap">Both machines join a private network of their own. Addresses and keys stay off this page on purpose.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="bench">
+  <div class="wrap">
+    <div class="sec-h"><h2>On the bench now</h2><span class="note mono">honest status</span></div>
+
+    <article class="proj">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led work" aria-hidden="true"></span>Building</p>
+          <h3>Business model explainer</h3>
+          <p class="what">A tool that shows you exactly how a business makes money.</p>
+          <p class="body">Pick a company and watch one customer dollar move: who pays whom, what the product actually costs, and where the margin is hiding. Change one number and the whole picture moves with it.</p>
+          <p class="body">I started it because I could repeat that Costco makes its money on memberships rather than groceries, but I could not show anyone why that is true. Saying it is not understanding it.</p>
+          <p class="body">Where it stands: the model of the data is drawn and the first diagrams work. Next is wiring real published figures in instead of illustrative ones.</p>
+          <div class="readout"><span>diagrams drawn</span><span>real filings next</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <img src="assets/img/bizmodel-diagram.svg" alt="Concept sketch: a customer dollar enters a business and splits into cost of goods, other costs, and the small margin left over" loading="lazy">
+            <p class="cap">Concept sketch, not a screenshot. Figures shown are illustrative.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj flip">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led plan" aria-hidden="true"></span>Researched, not built</p>
+          <h3>8-bit CPU from discrete chips</h3>
+          <p class="what">A processor built out of individual logic chips, not bought as one.</p>
+          <p class="body">A clock, two registers, an adder, sixteen bytes of memory and a display, wired together on a breadboard and driven by a shared bus — then moved onto a printed board once it runs.</p>
+          <p class="body">I have done the reading: the datapath, the instruction set, and the parts list. Nothing is wired yet, and I am not going to pretend otherwise. It is the project I most want a workbench and other people's advice for.</p>
+          <div class="readout"><span>architecture chosen</span><span>parts list drafted</span><span>nothing soldered</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <img src="assets/img/cpu-diagram.svg" alt="Planned CPU block diagram: clock and control driving registers, adder, memory and display over an 8-bit shared bus" loading="lazy">
+            <p class="cap">The plan on paper. Every block is a chip I can buy for a few dollars.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led work" aria-hidden="true"></span>Selling</p>
+          <h3>Booking sites for local shops</h3>
+          <p class="what">Barbers, salons and restaurants lose appointments to the phone.</p>
+          <p class="body">The demo on the right is a working app, not a picture of one: real accounts with email verification, a reservation system with live table availability, and an account page where a guest can cancel a booking.</p>
+          <p class="body">I wrote the attack tests too — for stolen sessions, injected database commands, and cancelling someone else&#8217;s reservation. Thirteen of them run on every change and all thirteen pass. One real bug turned up during the build: password-reset links were being built from a header an attacker controls.</p>
+          <p class="body">The hard part is not the code. I can build the site in a weekend; I have never walked into a barbershop and asked for the sale. That is the part I am trying to get better at.</p>
+          <div class="readout"><span>accounts + reservations</span><span>13/13 security tests</span><span>100 accessibility score</span><span>pricing model built</span></div>
+        </div>
+        <div class="proj-media">
+          <div class="frame">
+            <div class="shots">
+              <img src="assets/img/web-desktop.jpg" alt="Desktop view of a restaurant booking site built as a demo: dark hero image with reservation call to action" loading="lazy" width="900" height="562">
+              <img src="assets/img/web-mobile.jpg" alt="The same booking site on a phone screen" loading="lazy" width="415" height="900">
+            </div>
+            <p class="cap">Crucible, a demo steakhouse — no paying client yet. Node and Express, sign-up through booking, on a phone and a laptop.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-h"><h2>How I work</h2></div>
+    <div class="cols">
+      <div class="card">
+        <h4>Finish, then use it daily</h4>
+        <p>Six of these run on my machine every day. Real use finds bugs no review does — one stale lock file quietly stopped seven of my apps from opening, with no error at all.</p>
+      </div>
+      <div class="card">
+        <h4>Report the result, not the story</h4>
+        <p>My first trading model lost money on data it had not seen. Writing that down is what made the second one work. A negative result you can trust beats a positive one you cannot.</p>
+      </div>
+      <div class="card">
+        <h4>Build the limits first</h4>
+        <p>Anything that can control a computer gets a kill switch, an allowed list, and a log before it gets features. Safety added afterwards is just a wish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p class="mono">Anshul Vasmate · College Park, MD</p>
+    <p class="mono"><a href="mailto:anshulvasmate2019@gmail.com">anshulvasmate2019@gmail.com</a> · <a href="https://github.com/darkspaz-v1">github.com/darkspaz-v1</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

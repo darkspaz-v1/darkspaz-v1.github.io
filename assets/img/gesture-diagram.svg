@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-label="Diagram: webcam hand landmarks are smoothed by a One Euro filter and mapped to cursor position on screen" font-family="'IBM Plex Mono',ui-monospace,monospace">
+<defs><marker id="ga" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#3d4a54"/></marker></defs>
+<g stroke="#3d4a54" stroke-width="1.5" fill="none">
+  <path d="M120 250 L120 150 M120 150 L92 96 M120 150 L116 84 M120 150 L144 92 M120 178 L168 140"/>
+</g>
+<g fill="#FFB547">
+  <circle cx="120" cy="250" r="6"/><circle cx="120" cy="150" r="5"/><circle cx="92" cy="96" r="5"/>
+  <circle cx="116" cy="84" r="5"/><circle cx="144" cy="92" r="5"/><circle cx="120" cy="178" r="5"/>
+</g>
+<circle cx="168" cy="140" r="8" fill="none" stroke="#FFB547" stroke-width="2"/>
+<text x="64" y="292" fill="#93A3AD" font-size="12">21 hand landmarks</text>
+<text x="64" y="310" fill="#5f6d78" font-size="12">webcam, 30 fps</text>
+<g stroke="#3d4a54" stroke-width="1.5" fill="none">
+  <path d="M232 170 L296 170" marker-end="url(#ga)"/><path d="M458 170 L522 170" marker-end="url(#ga)"/>
+</g>
+<rect x="304" y="128" width="150" height="84" rx="8" fill="#1b232a" stroke="#2f3a43"/>
+<text x="379" y="162" fill="#EDF1F3" font-size="13" text-anchor="middle">One Euro</text>
+<text x="379" y="182" fill="#EDF1F3" font-size="13" text-anchor="middle">filter</text>
+<text x="379" y="236" fill="#5f6d78" font-size="11" text-anchor="middle">cancels hand tremor</text>
+<rect x="530" y="82" width="200" height="136" rx="8" fill="#1b232a" stroke="#2f3a43"/>
+<path d="M604 126 L604 174 L616 164 L624 182 L632 178 L624 160 L638 158 Z" fill="#FFB547"/>
+<text x="630" y="248" fill="#93A3AD" font-size="12" text-anchor="middle">cursor position</text>
+<text x="630" y="266" fill="#5f6d78" font-size="11" text-anchor="middle">tap = click &#183; hold = drag</text>
+</svg>
