@@ -82,6 +82,7 @@ h2{font-family:var(--display);font-weight:600;font-size:clamp(1.35rem,3.4vw,1.9r
   .proj-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:start}
   .proj.flip .proj-media{order:-1}
 }
+.proj.research .proj-grid{grid-template-columns:minmax(0,1fr)}
 h3{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.6vw,1.45rem);letter-spacing:-.01em}
 .tag{display:inline-flex;align-items:center;gap:7px;margin-bottom:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .what{margin-top:10px;color:var(--amber);font-size:1rem}
@@ -245,6 +246,25 @@ footer{border-top:1px solid var(--line);padding:38px 0 54px}
             <img src="assets/img/remote-diagram.svg" alt="Diagram: a campus laptop reaches a home laptop over a private encrypted network for remote desktop, SSH and two-way folder sync, with the home machine waking on a schedule" loading="lazy">
             <p class="cap">Both machines join a private network of their own. Addresses and keys stay off this page on purpose.</p>
           </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="sec-h"><h2>Earlier research</h2><span class="note mono">UMES · 2025–2026</span></div>
+
+    <article class="proj research">
+      <div class="proj-grid">
+        <div>
+          <p class="tag"><span class="led on" aria-hidden="true"></span>Machine learning · TensorFlow</p>
+          <h3>Robotic-arm research</h3>
+          <p class="what">Training a vision model for a robotic-arm project.</p>
+          <p class="body">At the University of Maryland Eastern Shore, I worked on a machine-learning robotic-arm project under the guidance of UMES students and a professor.</p>
+          <p class="body">I trained TensorFlow on more than 600 images. It was an ongoing research project during my senior year of high school.</p>
+          <div class="readout"><span>600+ training images</span><span>TensorFlow</span><span>UMES research</span></div>
         </div>
       </div>
     </article>
