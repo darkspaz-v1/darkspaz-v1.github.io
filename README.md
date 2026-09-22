@@ -1,6 +1,9 @@
 # darkspaz-v1.github.io
 
-Personal portfolio site — a single self-contained `index.html`, served by GitHub Pages.
+Personal portfolio site — a single self-contained `index.html`, served by GitHub Pages at
+**[darkspaz-v1.github.io](https://darkspaz-v1.github.io/)**.
+
+![Screenshot of the live portfolio site: a dark workbench-themed hero section with a project status board](.github/site-screenshot.png)
 
 ## Design
 
